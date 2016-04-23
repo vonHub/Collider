@@ -6,6 +6,8 @@
 
 // This application uses express as its web server
 // for more info, see: http://expressjs.com
+
+/* // Original code here
 var express = require('express');
 
 // cfenv provides access to your Cloud Foundry environment
@@ -27,3 +29,21 @@ app.listen(appEnv.port, '0.0.0.0', function() {
 	// print a message when the server starts listening
   console.log("server starting on " + appEnv.url);
 });
+*/
+var express = require('express')
+
+var cfenv = require('cfenv');
+var appEnv = cfenv.getAppEnv();
+
+var express = require('express');
+var app = express();
+app.use(express.static(__dirname + '/public'));
+var http = require('http').Server(app);
+// var io = require('socket.io')(http);
+
+http.listen(appEnv.port, function(){
+	console.log('Listening on *:' + appEnv.port);
+})
+
+var canvasWidth = 800;
+var canvasHeight = 600;
