@@ -1,17 +1,18 @@
-This README.md file is displayed on your project page. You should edit this 
-file to describe your project, including instructions for building and 
-running the project, pointers to the license under which you are making the 
-project available, and anything else you think would be useful for others to
-know.
+COLLIDER is a simple 2d two-player game.
 
-We have created an empty license.txt file for you. Well, actually, it says,
-"<Replace this text with the license you've chosen for your project.>" We 
-recommend you edit this and include text for license terms under which you're
-making your code available. A good resource for open source licenses is the 
-[Open Source Initiative](http://opensource.org/).
+Each person controls a single sphere with the arrow keys. They move around
+inside an arena and attempt to knock the other player into bumpers in the arena.
+Games last x seconds, with the winner being whoever hit the bumpers the
+fewest times.
 
-Be sure to update your project's profile with a short description and 
-eye-catching graphic.
+Players will only be able to change direction slowly, but will be able to accelerate
+to a very high speed. Hitting the arena wall or bumper will cause the player to
+ricochet; hitting another player will do the same, with an additional boost in
+speed way from each other, so that players colliding at even very low speeds will
+receive a noticeable kick away from each other.
 
-Finally, consider defining some sprints and work items in Track & Plan to give 
-interested developers a sense of your cadence and upcoming enhancements.
+Under their own control, players will not be able to exceed a certain speed; this
+can be done by achieving maximum or near-maximum speed, but the player will then
+slowly decelerate until reaching the normal maximum speed.
+
+Now pray to your favorite Elder God that I can finish this in time.
