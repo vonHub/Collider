@@ -16,3 +16,8 @@ can be done by achieving maximum or near-maximum speed, but the player will then
 slowly decelerate until reaching the normal maximum speed.
 
 Now pray to your favorite Elder God that I can finish this in time.
+
+Stuff the html needs to know:
+*Score of each player
+*Game time remaining
+*Position of each player
