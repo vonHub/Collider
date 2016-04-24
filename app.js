@@ -1,4 +1,4 @@
-/*eslint-env node*/
+/*eslint-env node, browser*/
 
 //------------------------------------------------------------------------------
 // node.js starter application for Bluemix
@@ -33,20 +33,90 @@ app.listen(appEnv.port, '0.0.0.0', function() {
 
 var cfenv = require('cfenv');
 var appEnv = cfenv.getAppEnv();
-var express = require('express')
+var express = require('express');
 var app = express();	app.use(express.static(__dirname + '/public'));
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var clients = [];
 
 http.listen(appEnv.port, function(){
-	console.log('Listening on *:' + appEnv.port);
-})
+	console.log('Listening on ' + appEnv.port);
+});
 
 io.on('connection', function(socket){
   console.log('a user connected');
+  socket.on('disconnect', function(){
+  	var index = clients.indexOf(socket.id);
+  	clients.slice(index, 1);
+  	console.log('a user disconnected');
+  });
+  
+  clients.push(socket.id);
 });
 
 var canvasWidth = 500;
 var canvasHeight = 500;
 
 var timeRemaining = 60;
+
+function Sphere(x, y, color) {
+	this.x = x;
+	this.y = y;
+	this.color = color;
+	this.radius = 15;
+	this.acceleration = 1;
+	this.maxSpeed = 30;
+	this.xVel = 0;
+	this.yVel = 0;
+	this.move = function(){
+		this.x += this.xVel;
+		this.y += this.yVel;
+		if (this.x - this.radius < 0) {
+			this.xVel = -this.xVel;
+			this.x = this.radius;
+		} else if (this.x + this.radius > canvasWidth) {
+			this.xVel = -this.xVel;
+			this.x = canvasWidth - this.radius;
+		}
+		if (this.y - this.radius < 0) {
+			this.yVel = -this.yVel;
+			this.y = this.radius;
+		} else if (this.y + this.radius > canvasHeight) {
+			this.yVel = -this.yVel;
+			this.y = canvasHeight - this.radius;
+		}
+	};
+	this.changeXVel = function(delta){
+		this.xVel += delta;
+	};
+	this.changeYVel = function(delta){
+		this.yVel += delta;
+	};
+	this.getSpeed = function(){
+		return Math.sqrt(this.xVel * this.xVel + this.yVel * this.yVel);
+	};
+	this.changeSpeed = function(delta){
+		var speed = getSpeed();
+		speed += delta;
+		var factor = speed / getSpeed;
+		this.xVel *= factor;
+		this.yVel *= factor;
+	};
+	this.draw = function(){
+		var canvas = document.getElementById("gameCanvas");
+		var ctx = canvas.getContext("2d");
+		ctx.beginPath();
+		ctx.arc(this.x - this.radius, this.y - this.radius, this.radius, 0, 2 * Math.PI);
+		ctx.stroke();
+		ctx.fillStyle = this.color;
+		ctx.fill();
+	};
+	this.setPosition = function(x, y){
+		this.x = x; this.y = y;
+	};
+}
+
+var playerOne = new Sphere(30, 30, "yellow");
+playerOne.draw();
+
+var clients = [];
