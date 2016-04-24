@@ -1,3 +1,5 @@
+/*eslint-env browser */
+/*globals io */
 var socket = io();
 
 function start() {

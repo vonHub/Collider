@@ -30,14 +30,11 @@ app.listen(appEnv.port, '0.0.0.0', function() {
   console.log("server starting on " + appEnv.url);
 });
 */
-var express = require('express')
 
 var cfenv = require('cfenv');
 var appEnv = cfenv.getAppEnv();
-
-var express = require('express');
-var app = express();
-app.use(express.static(__dirname + '/public'));
+var express = require('express')
+var app = express();	app.use(express.static(__dirname + '/public'));
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
@@ -45,5 +42,11 @@ http.listen(appEnv.port, function(){
 	console.log('Listening on *:' + appEnv.port);
 })
 
-var canvasWidth = 800;
-var canvasHeight = 600;
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
+
+var canvasWidth = 500;
+var canvasHeight = 500;
+
+var timeRemaining = 60;

@@ -85,3 +85,11 @@ pre {
 	margin: 0;
 }
 
+.button {
+	border-radius: 8px;
+    color: yellow;
+    background-color: black;
+    cursor: pointer;
+    border: 2px solid yellow;
+}
+
