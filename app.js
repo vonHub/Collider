@@ -58,6 +58,7 @@ function Sphere(x, y, color) {
 	this.yVel = 0;
 	this.id = 0;
 	this.move = function(){
+		console.log("Move function called");
 		this.x += this.xVel;
 		this.y += this.yVel;
 		if (this.x - this.radius < 0) {
@@ -120,7 +121,6 @@ bumpers.push(bumperFour);
 function processInputs(player, inputs){
 	if (inputs[0] == 1){	// Left
 		player.changeXVel(-1);
-		console.log("XVel: " + player.xVel);
 	}	
 	if (inputs[1] == 1){	// Up
 		player.changeYVel(-1);
