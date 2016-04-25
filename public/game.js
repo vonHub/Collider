@@ -70,10 +70,21 @@ console.log("Executed game.js");
 
 var playerOne;
 socket.on('test', function(sphere){
-	playerOne = sphere
+	console.log("Test function activated");
+	playerOne = sphere;
 	playerOne.draw();
 	document.getElementById("debug").innerHTML = "test received";
 });
+
+function draw(player){
+	var canvas = document.getElementById("gameCanvas");
+	var ctx = canvas.getContext("2d");
+	ctx.beginPath();
+	ctx.arc(player.x - player.radius, player.y - player.radius, player.radius, 0, 2 * Math.PI);
+	ctx.stroke();
+	ctx.fillStyle = player.color;
+	ctx.fill();
+}
 
 document.onkeydown = keyDown;
 document.onkeyup = keyUp;
