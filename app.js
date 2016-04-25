@@ -96,8 +96,19 @@ function Sphere(x, y, color) {
 	};
 }
 
+function Bumper(x, y){
+	this.x = x;
+	this.y = y;
+	this.radius = 15;
+}
+
 var playerOne = new Sphere(15, 15, "green");
 var playerTwo = new Sphere(485, 485, "blue");
+var bumperOne = new Bumper(canvasWidth*1/3, canvasHeight*1/3);
+var bumperTwo = new Bumper(canvasWidth*1/3, canvasHeight*2/3);
+var bumperThree = new Bumper(canvasWidth*2/3, canvasHeight*1/3);
+var bumperFour = new Bumper(canvasWidth*2/3, canvasHeight*2/3);
+var bumpers = [bumperOne, bumperTwo, bumperThree, bumperFour];
 
 console.log("Executed app.js");
 
@@ -115,22 +126,15 @@ io.sockets.on('connection', function(socket){
 	
 	if (clients.length < 2 && clients.indexOf(socket.id) < 0) {
 		clients.push(socket.id);		
-	} //else if (!clients.includes(socket.id)){
-		//clients.push(socket.id);
-	//}
-	//clients.push(socket.id);
+	}
 
 	
 	if (clients.length == 2) {
 		playerOne.id = clients[0];
 		playerTwo.id = clients[1];
-		io.emit('debug', clients[0] + " " + clients[1]);
-		io.emit('test', playerOne);
+		io.emit('playerOne', playerOne);
+		io.emit('playerTwo', playerTwo);
+		io.emit('bumpers', bumpers);
+		io.emit('debug', "Two clients connected");
 	}
-	
-	/*io.emit('test', new Sphere(30, 30, "yellow"));
-	console.log("Server received connection");
-	socket.on('received', function(){
-		console.log("Server received reply");
-	});*/
 });

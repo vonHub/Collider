@@ -66,8 +66,15 @@ function Sphere(x, y, color) {
 	};
 }
 
+function Bumper(x, y){
+	this.x = x;
+	this.y = y;
+	this.radius = 15;
+}
+
 var playerOne;
 var playerTwo;
+var bumpers = [];
 
 socket.on('playerOne', function(sphere){
 	playerOne = sphere;
@@ -75,6 +82,10 @@ socket.on('playerOne', function(sphere){
 
 socket.on('playerTwo', function(sphere){
 	playerTwo = sphere;
+});
+
+socket.on('bumpers', function(array){
+	bumpers = array;
 });
 
 socket.on('test', function(sphere){
@@ -91,16 +102,29 @@ socket.on('debug', function(data){
 function draw(){
 	drawPlayer(playerOne);
 	drawPlayer(playerTwo);
+	drawBumpers();
 }
 
 function drawPlayer(player){
 	var canvas = document.getElementById("gameCanvas");
 	var ctx = canvas.getContext("2d");
 	ctx.beginPath();
-	ctx.arc(player.x - player.radius, player.y - player.radius, player.radius, 0, 2 * Math.PI);
+	ctx.arc(player.x, player.y, player.radius, 0, 2 * Math.PI);
 	ctx.stroke();
 	ctx.fillStyle = player.color;
 	ctx.fill();
+}
+
+function drawBumpers(){
+	for (var bumper in bumpers) {
+		var canvas = document.getElementById("gameCanvas");
+		var ctx = canvas.getContext("2d");
+		ctx.beginPath();
+		ctx.arc(bumper.x, bumper.y, bumper.radius, 0, 2 * Math.PI);
+		ctx.stroke();
+		ctx.fillStyle = "brown";
+		ctx.fill();
+	}
 }
 
 document.onkeydown = keyDown;
