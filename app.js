@@ -104,11 +104,13 @@ function Bumper(x, y){
 
 var playerOne = new Sphere(15, 15, "green");
 var playerTwo = new Sphere(485, 485, "blue");
-var bumperOne = new Bumper(canvasWidth*1/3, canvasHeight*1/3);
-var bumperTwo = new Bumper(canvasWidth*1/3, canvasHeight*2/3);
-var bumperThree = new Bumper(canvasWidth*2/3, canvasHeight*1/3);
-var bumperFour = new Bumper(canvasWidth*2/3, canvasHeight*2/3);
-var bumpers = [bumperOne, bumperTwo, bumperThree, bumperFour];
+var bumperOne = new Bumper(200, 200);
+//var bumperTwo = new Bumper(canvasWidth*1/3, canvasHeight*2/3);
+//var bumperThree = new Bumper(canvasWidth*2/3, canvasHeight*1/3);
+//var bumperFour = new Bumper(canvasWidth*2/3, canvasHeight*2/3);
+//var bumpers = [bumperOne, bumperTwo, bumperThree, bumperFour];
+var bumpers = [];
+bumper.push(bumperOne);
 
 console.log("Executed app.js");
 
