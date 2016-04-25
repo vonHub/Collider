@@ -118,6 +118,7 @@ bumpers.push(bumperFour);
 console.log("Executed app.js");
 
 var clients = [];
+var interval;
 
 io.sockets.on('connection', function(socket){
 	
@@ -132,7 +133,6 @@ io.sockets.on('connection', function(socket){
 	if (clients.length < 2 && clients.indexOf(socket.id) < 0) {
 		clients.push(socket.id);		
 	}
-
 	
 	if (clients.length == 2) {
 		playerOne.id = clients[0];
@@ -140,6 +140,17 @@ io.sockets.on('connection', function(socket){
 		io.emit('playerOne', playerOne);
 		io.emit('playerTwo', playerTwo);
 		io.emit('bumpers', bumpers);
-		//io.emit('debug', bumpers.length);
 	}
+	
+	interval = setInterval(function(){
+		
+		io.emit('getInputs');
+		
+		playerOne.move();
+		playerTwo.move();
+		
+		io.emit('playerOne', playerOne);
+		io.emit('playerTwo', playerTwo);
+		
+	}, 30);
 });

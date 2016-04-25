@@ -74,6 +74,9 @@ function Bumper(x, y){
 
 var playerOne;
 var playerTwo;
+
+var inputs = [0, 0, 0, 0];
+
 var bumpers = [];
 
 socket.on('playerOne', function(sphere){
@@ -87,6 +90,10 @@ socket.on('playerTwo', function(sphere){
 socket.on('bumpers', function(array){
 	bumpers = array;
 	draw();
+});
+
+socket.on('getInputs', function(){
+	
 });
 
 socket.on('debug', function(data){
