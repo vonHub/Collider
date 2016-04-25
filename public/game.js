@@ -91,6 +91,7 @@ document.onkeyup = keyUp;
 
 function keyDown(event) {
 	event = event || window.event;
+	console.log("Key pressed down");
 	
 	if (event.keyCode == 37) {	// Left
 		document.getElementById("debug").innerHTML = "Left";
