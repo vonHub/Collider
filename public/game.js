@@ -110,11 +110,12 @@ function drawPlayer(player){
 }
 
 function drawBumpers(){
-	for (var bumper in bumpers) {
+		document.getElementById("debug").innerHTML = "word";
+	for (var b in bumpers) {
 		var canvas = document.getElementById("gameCanvas");
 		var ctx = canvas.getContext("2d");
 		ctx.beginPath();
-		ctx.arc(200, 200, 15, 0, 2 * Math.PI);
+		ctx.arc(200, 400, 15, 0, 2 * Math.PI);
 		ctx.stroke();
 		ctx.fillStyle = "brown";
 		ctx.fill();
