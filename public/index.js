@@ -9,3 +9,8 @@ console.log("Executed index.js");
 function openGame() {
 	window.open("game.html", '_self');	// Replace current page	
 }
+
+socket.on('test', function(){
+	document.getElementById("debug").innerHTML = "test received";
+	socket.emit('received');
+});
