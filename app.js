@@ -90,6 +90,7 @@ function Sphere(x, y, color) {
 	this.changeSpeed = function(delta){
 		var speed = getSpeed();
 		speed += delta;
+		if (speed < 0) speed = 0;
 		var factor = speed / getSpeed;
 		this.xVel *= factor;
 		this.yVel *= factor;
