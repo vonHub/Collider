@@ -67,6 +67,7 @@ function Sphere(x, y, color) {
 	this.maxSpeed = 30;
 	this.xVel = 0;
 	this.yVel = 0;
+	this.id = 0;
 	this.move = function(){
 		this.x += this.xVel;
 		this.y += this.yVel;
@@ -106,17 +107,32 @@ function Sphere(x, y, color) {
 	};
 }
 
+var playerOne = new Sphere(15, 15, "green");
+var playerTwo = new Sphere(485, 485, "blue");
+
 console.log("Executed app.js");
 
 var clients = [];
 
 io.sockets.on('connection', function(socket){
+	
 	socket.on('disconnect', function(){
-		
+		var index = clients.indexOf(socket.id);
+		if (index >= 0) clients.splice(index, 1);
 	});
-	io.emit('test', new Sphere(30, 30, "yellow"));
+	
+	if (clients.length === 2) return;
+	clients.push(socket.id);
+	
+	if (clients.length === 2) {
+		playerOne.id = clients[0];
+		playerTwo.id = clients[1];
+		io.emit('test', playerOne);
+	}
+	
+	/*io.emit('test', new Sphere(30, 30, "yellow"));
 	console.log("Server received connection");
 	socket.on('received', function(){
 		console.log("Server received reply");
-	});
+	});*/
 });

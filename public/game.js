@@ -67,14 +67,29 @@ function Sphere(x, y, color) {
 }
 
 var playerOne;
-socket.on('test', function(sphere){
+var playerTwo;
+
+socket.on('playerOne', function(sphere){
 	playerOne = sphere;
-	playerOne.draw();
-	document.getElementById("debug").innerHTML = "test received";
-	socket.emit('received');
 });
 
-function draw(player){
+socket.on('playerTwo', function(sphere){
+	playerTwo = sphere;
+});
+
+socket.on('test', function(sphere){
+	/*playerOne = sphere;
+	draw(playerOne);
+	document.getElementById("debug").innerHTML = "test received";
+	socket.emit('received');*/
+});
+
+function draw(){
+	drawPlayer(playerOne);
+	drawPlayer(playerTwo);
+}
+
+function drawPlayer(player){
 	var canvas = document.getElementById("gameCanvas");
 	var ctx = canvas.getContext("2d");
 	ctx.beginPath();
@@ -96,6 +111,8 @@ function keyDown(event) {
 		document.getElementById("debug").innerHTML = "Up";
 	} else if (event.keyCode == 39) {	// Right
 		document.getElementById("debug").innerHTML = "Right";
+		playerOne.x = playerOne.x + 1;
+		draw(playerOne);
 	} else if (event.keyCode == 40) {	// Down
 		document.getElementById("debug").innerHTML = "Down";
 	}
