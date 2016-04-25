@@ -42,17 +42,6 @@ http.listen(appEnv.port, function(){
 	console.log('Listening on ' + appEnv.port);
 });
 
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-  	var index = clients.indexOf(socket.id);
-  	clients.slice(index, 1);
-  	console.log('a user disconnected');
-  });
-  
-  clients.push(socket.id);
-});
-
 var canvasWidth = 500;
 var canvasHeight = 500;
 
@@ -116,18 +105,20 @@ var clients = [];
 
 io.sockets.on('connection', function(socket){
 	
+    console.log('a user connected');
 	
 	socket.on('disconnect', function(){
 		var index = clients.indexOf(socket.id);
 		if (index >= 0) clients.splice(index, 1);
+  		console.log('a user disconnected');
 	});
 	
 	if (clients.length >= 2) {
 		
-	} /*else if (!clients.includes(socket.id)){
+	} else if (!clients.includes(socket.id)){
 		clients.push(socket.id);
-	}*/
-	clients.push(socket.id);
+	}
+	//clients.push(socket.id);
 
 	
 	if (clients.length == 2) {
