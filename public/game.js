@@ -68,8 +68,12 @@ function Sphere(x, y, color) {
 
 console.log("Executed game.js");
 
-var playerOne = new Sphere(30, 30, "yellow");
-playerOne.draw();
+var playerOne;
+socket.on('test', function(sphere){
+	playerOne = sphere
+	playerOne.draw();
+	document.getElementById("debug").innerHTML = "test received";
+});
 
 document.onkeydown = keyDown;
 document.onkeyup = keyUp;

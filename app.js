@@ -109,4 +109,6 @@ function Sphere(x, y, color) {
 
 console.log("Executed app.js");
 
+io.emit('test', new Sphere(30, 30, "yellow"));
+
 var clients = [];
