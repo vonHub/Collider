@@ -52,7 +52,7 @@ function Sphere(x, y, color) {
 	this.y = y;
 	this.color = color;
 	this.radius = 15;
-	this.acceleration = 1;
+	this.acceleration = .2;
 	this.maxSpeed = 30;
 	this.xVel = 0;
 	this.yVel = 0;
@@ -119,16 +119,16 @@ bumpers.push(bumperFour);
 
 function processInputs(player, inputs){
 	if (inputs[0] == 1){	// Left
-		player.changeXVel(-1);
+		player.changeXVel(player.acceleration);
 	}	
 	if (inputs[1] == 1){	// Up
-		player.changeYVel(-1);
+		player.changeYVel(player.acceleration);
 	}
 	if (inputs[2] == 1){	// Right
-		player.changeXVel(1);
+		player.changeXVel(player.acceleration);
 	}
 	if (inputs[3] == 1){	// Down
-		player.changeYVel(1);
+		player.changeYVel(player.acceleration);
 	}
 };
 
