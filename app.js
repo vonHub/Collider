@@ -119,10 +119,10 @@ bumpers.push(bumperFour);
 
 function processInputs(player, inputs){
 	if (inputs[0] == 1){	// Left
-		player.changeXVel(player.acceleration);
+		player.changeXVel(-player.acceleration);
 	}	
 	if (inputs[1] == 1){	// Up
-		player.changeYVel(player.acceleration);
+		player.changeYVel(-player.acceleration);
 	}
 	if (inputs[2] == 1){	// Right
 		player.changeXVel(player.acceleration);
