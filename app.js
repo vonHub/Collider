@@ -91,9 +91,12 @@ function Sphere(x, y, color) {
 		var speed = getSpeed();
 		speed += delta;
 		if (speed < 0) speed = 0;
-		var factor = speed / getSpeed;
-		this.xVel *= factor;
-		this.yVel *= factor;
+		if (getSpeed() != 0) {
+			var factor = speed / getSpeed();
+			this.xVel *= factor;
+			this.yVel *= factor;
+		}
+
 	};
 	this.setPosition = function(x, y){
 		this.x = x; this.y = y;
