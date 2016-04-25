@@ -104,9 +104,16 @@ socket.on('debug', function(data){
 });
 
 function draw(){
+	clearCanvas();
 	drawPlayer(playerOne);
 	drawPlayer(playerTwo);
 	drawBumpers();
+}
+
+function clearCanvas(){
+	var canvas = document.getElementById("gameCanvas");
+	var ctx = canvas.getContext("2d");
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function drawPlayer(player){
