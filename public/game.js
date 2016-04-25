@@ -114,6 +114,7 @@ function drawPlayer(player){
 	ctx.stroke();
 	ctx.fillStyle = player.color;
 	ctx.fill();
+	document.getElementById("debug").innerHTML = "Client player x: " + player.x;
 }
 
 function drawBumpers(){

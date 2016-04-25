@@ -58,7 +58,6 @@ function Sphere(x, y, color) {
 	this.yVel = 0;
 	this.id = 0;
 	this.move = function(){
-		console.log("Move function called");
 		this.x += this.xVel;
 		this.y += this.yVel;
 		if (this.x - this.radius < 0) {
