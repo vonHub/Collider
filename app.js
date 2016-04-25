@@ -113,11 +113,11 @@ io.sockets.on('connection', function(socket){
   		console.log('a user disconnected');
 	});
 	
-	if (clients.length >= 2) {
-		
-	} else if (!clients.includes(socket.id)){
-		clients.push(socket.id);
-	}
+	if (clients.length < 2 && clients.indexOf(socket.id) < 0) {
+		clients.push(socket.id);		
+	} //else if (!clients.includes(socket.id)){
+		//clients.push(socket.id);
+	//}
 	//clients.push(socket.id);
 
 	
