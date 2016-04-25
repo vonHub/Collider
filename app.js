@@ -171,10 +171,13 @@ io.sockets.on('connection', function(socket){
 	
 	socket.on('inputs', function(inputs){
 		
+		console.log("Inputs received");
 		if (playerOne.id == socket.id) {
 			processInputs(playerOne, inputs);
+			console.log("Player one input");
 		} else if (playerTwo.id == socket.id) {
 			processInputs(playerTwo, inputs);
+			console.log("Player two input");
 		}
 		
 	});
