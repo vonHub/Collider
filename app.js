@@ -120,6 +120,7 @@ bumpers.push(bumperFour);
 function processInputs(player, inputs){
 	if (inputs[0] == 1){	// Left
 		player.changeXVel(-1);
+		console.log("XVel: " + player.xVel);
 	}	
 	if (inputs[1] == 1){	// Up
 		player.changeYVel(-1);
@@ -133,7 +134,7 @@ function processInputs(player, inputs){
 };
 
 var clients = [];
-var interval;
+var advanceGame;
 
 io.sockets.on('connection', function(socket){
 	
@@ -157,7 +158,7 @@ io.sockets.on('connection', function(socket){
 		io.emit('bumpers', bumpers);
 	}
 	
-	interval = setInterval(function(){
+	advanceGame = setInterval(function(){
 		
 		io.emit('getInputs');
 		
