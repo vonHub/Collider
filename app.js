@@ -75,7 +75,7 @@ function Sphere(x, y, color) {
 			this.y = canvasHeight - this.radius;
 		}
 		if (this.getSpeed() > this.maxSpeed) {
-			this.changeSpeed(.99);
+			this.changeSpeed(-.2);
 		}
 	};
 	this.changeXVel = function(delta){
