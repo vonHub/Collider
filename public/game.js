@@ -89,6 +89,9 @@ socket.on('playerTwo', function(sphere){
 
 socket.on('bumpers', function(array){
 	bumpers = array;
+});
+
+socket.on('draw', function(){
 	draw();
 });
 

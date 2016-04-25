@@ -169,6 +169,8 @@ io.sockets.on('connection', function(socket){
 		io.emit('playerOne', playerOne);
 		io.emit('playerTwo', playerTwo);
 		
+		io.emit('draw');
+		
 	}, 30);
 	
 	socket.on('inputs', function(inputs){
