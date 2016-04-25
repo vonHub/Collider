@@ -164,6 +164,8 @@ io.sockets.on('connection', function(socket){
 		
 		playerOne.move();
 		playerTwo.move();
+		console.log("Player one x: " + playerOne.x);
+		console.log("Player two x: " + playerTwo.x);
 		
 		io.emit('playerOne', playerOne);
 		io.emit('playerTwo', playerTwo);
