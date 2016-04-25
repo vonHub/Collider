@@ -102,21 +102,11 @@ function Sphere(x, y, color) {
 		this.xVel *= factor;
 		this.yVel *= factor;
 	};
-	this.draw = function(){
-		var canvas = document.getElementById("gameCanvas");
-		var ctx = canvas.getContext("2d");
-		ctx.beginPath();
-		ctx.arc(this.x - this.radius, this.y - this.radius, this.radius, 0, 2 * Math.PI);
-		ctx.stroke();
-		ctx.fillStyle = this.color;
-		ctx.fill();
-	};
 	this.setPosition = function(x, y){
 		this.x = x; this.y = y;
 	};
 }
 
-var playerOne = new Sphere(30, 30, "yellow");
-playerOne.draw();
+console.log("Executed app.js");
 
 var clients = [];
