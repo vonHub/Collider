@@ -116,22 +116,22 @@ var clients = [];
 
 io.sockets.on('connection', function(socket){
 	
-	io.emit('connected', clients.length + 1);
-	
 	socket.on('disconnect', function(){
 		var index = clients.indexOf(socket.id);
 		if (index >= 0) clients.splice(index, 1);
 	});
 	
-	if (clients.length == 2) {
-		clients = [];
+	if (clients.length >= 2) {
+		
+	} else if (!clients.includes(socket.id)){
+		clients.push(socket.id);
 	}
 
-	clients.push(socket.id);
 	
 	if (clients.length == 2) {
 		playerOne.id = clients[0];
 		playerTwo.id = clients[1];
+		io.emit('debug', clients[0] + " " + clients[1]);
 		io.emit('test', playerOne);
 	}
 	

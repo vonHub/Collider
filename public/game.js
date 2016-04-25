@@ -84,8 +84,8 @@ socket.on('test', function(sphere){
 	socket.emit('received');
 });
 
-socket.on('connected', function(num){
-	document.getElementById("debug").innerHTML = "Clients: " + num;
+socket.on('debug', function(data){
+	document.getElementById("debug").innerHTML = data;
 });
 
 function draw(){
