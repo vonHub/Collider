@@ -78,10 +78,14 @@ socket.on('playerTwo', function(sphere){
 });
 
 socket.on('test', function(sphere){
-	/*playerOne = sphere;
+	playerOne = sphere;
 	draw(playerOne);
 	document.getElementById("debug").innerHTML = "test received";
-	socket.emit('received');*/
+	socket.emit('received');
+});
+
+socket.on('connected', function(num){
+	document.getElementById("debug").innerHTML = "Clients: " + num;
 });
 
 function draw(){
