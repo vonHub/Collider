@@ -104,8 +104,8 @@ function Bumper(x, y){
 
 var playerOne = new Sphere(15, 15, "green");
 var playerTwo = new Sphere(485, 485, "blue");
-var bumperOne = new Bumper(200, 200);
 var bumpers = [];
+var bumperOne = new Bumper(canvasWidth*1/3, canvasHeight*1/3);
 var bumperTwo = new Bumper(canvasWidth*1/3, canvasHeight*2/3);
 var bumperThree = new Bumper(canvasWidth*2/3, canvasHeight*1/3);
 var bumperFour = new Bumper(canvasWidth*2/3, canvasHeight*2/3);
@@ -140,6 +140,6 @@ io.sockets.on('connection', function(socket){
 		io.emit('playerOne', playerOne);
 		io.emit('playerTwo', playerTwo);
 		io.emit('bumpers', bumpers);
-		io.emit('debug', bumpers.length);
+		//io.emit('debug', bumpers.length);
 	}
 });
