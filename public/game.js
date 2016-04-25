@@ -94,3 +94,5 @@ function keyUp(event) {
 		document.getElementById("debug").innerHTML = "DownUp";
 	}
 }
+
+console.log("Executed game.js");
