@@ -66,14 +66,12 @@ function Sphere(x, y, color) {
 	};
 }
 
-console.log("Executed game.js");
-
 var playerOne;
 socket.on('test', function(sphere){
-	console.log("Test function activated");
 	playerOne = sphere;
 	playerOne.draw();
 	document.getElementById("debug").innerHTML = "test received";
+	socket.emit('received');
 });
 
 function draw(player){
@@ -91,7 +89,6 @@ document.onkeyup = keyUp;
 
 function keyDown(event) {
 	event = event || window.event;
-	console.log("Key pressed down");
 	
 	if (event.keyCode == 37) {	// Left
 		document.getElementById("debug").innerHTML = "Left";

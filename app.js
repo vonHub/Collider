@@ -116,4 +116,7 @@ io.sockets.on('connection', function(socket){
 	});
 	io.emit('test', new Sphere(30, 30, "yellow"));
 	console.log("Server received connection");
+	socket.on('received', function(){
+		console.log("Server received reply");
+	});
 });
