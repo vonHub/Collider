@@ -86,13 +86,7 @@ socket.on('playerTwo', function(sphere){
 
 socket.on('bumpers', function(array){
 	bumpers = array;
-});
-
-socket.on('test', function(sphere){
-	playerOne = sphere;
-	draw(playerOne);
-	document.getElementById("debug").innerHTML = "test received";
-	socket.emit('received');
+	draw();
 });
 
 socket.on('debug', function(data){
