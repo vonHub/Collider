@@ -37,7 +37,6 @@ var express = require('express');
 var app = express();	app.use(express.static(__dirname + '/public'));
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var clients = [];
 
 http.listen(appEnv.port, function(){
 	console.log('Listening on ' + appEnv.port);
@@ -109,6 +108,11 @@ function Sphere(x, y, color) {
 
 console.log("Executed app.js");
 
-io.emit('test', new Sphere(30, 30, "yellow"));
-
 var clients = [];
+
+io.sockets.on('connection', function(socket){
+	socket.on('disconnect', function(){
+		
+	});
+	io.emit('test', new Sphere(30, 30, "yellow"));
+});
