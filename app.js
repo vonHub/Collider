@@ -127,6 +127,7 @@ io.sockets.on('connection', function(socket){
 	} /*else if (!clients.includes(socket.id)){
 		clients.push(socket.id);
 	}*/
+	clients.push(socket.id);
 
 	
 	if (clients.length == 2) {
