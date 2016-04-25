@@ -93,7 +93,7 @@ socket.on('bumpers', function(array){
 });
 
 socket.on('getInputs', function(){
-	
+	socket.emit('inputs', inputs);
 });
 
 socket.on('debug', function(data){
@@ -136,14 +136,18 @@ function keyDown(event) {
 	
 	if (event.keyCode == 37) {	// Left
 		document.getElementById("debug").innerHTML = "Left";
+		inputs[0] = 1;
 	} else if (event.keyCode == 38) {	// Up
 		document.getElementById("debug").innerHTML = "Up";
+		inputs[1] = 1;
 	} else if (event.keyCode == 39) {	// Right
 		document.getElementById("debug").innerHTML = "Right";
-		playerOne.x = playerOne.x + 1;
-		draw(playerOne);
+		inputs[2] = 1;
+		//playerOne.x = playerOne.x + 1;
+		//draw(playerOne);
 	} else if (event.keyCode == 40) {	// Down
 		document.getElementById("debug").innerHTML = "Down";
+		inputs[3] = 1;
 	}
 }
 
@@ -152,11 +156,15 @@ function keyUp(event) {
 	
 	if (event.keyCode == 37) {	// Left
 		document.getElementById("debug").innerHTML = "LeftUp";
+		inputs[0] = 0;
 	} else if (event.keyCode == 38) {	// Up
 		document.getElementById("debug").innerHTML = "UpUp";
+		inputs[1] = 0;
 	} else if (event.keyCode == 39) {	// Right
 		document.getElementById("debug").innerHTML = "RightUp";
+		inputs[2] = 0;
 	} else if (event.keyCode == 40) {	// Down
 		document.getElementById("debug").innerHTML = "DownUp";
+		inputs[3] = 0;
 	}
 }

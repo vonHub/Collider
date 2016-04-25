@@ -115,7 +115,22 @@ bumpers.push(bumperTwo);
 bumpers.push(bumperThree);
 bumpers.push(bumperFour);
 
-console.log("Executed app.js");
+// console.log("Executed app.js");
+
+function processInputs(player, inputs){
+	if (inputs[0] == 1){	// Left
+		player.changeXVel(-1);
+	}	
+	if (inputs[1] == 1){	// Up
+		player.changeYVel(-1);
+	}
+	if (inputs[2] == 1){	// Right
+		player.changeXVel(1);
+	}
+	if (inputs[3] == 1){	// Down
+		player.changeYVel(1);
+	}
+};
 
 var clients = [];
 var interval;
@@ -153,4 +168,14 @@ io.sockets.on('connection', function(socket){
 		io.emit('playerTwo', playerTwo);
 		
 	}, 30);
+	
+	socket.on('inputs', function(inputs){
+		
+		if (playerOne.id == socket.id) {
+			processInputs(playerOne, inputs);
+		} else if (playerTwo.id == socket.id) {
+			processInputs(playerTwo, inputs);
+		}
+		
+	});
 });
