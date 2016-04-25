@@ -2,6 +2,8 @@
 /*globals io */
 var socket = io();
 		
+var canvasWidth = 500;
+var canvasHeight = 500;
 
 function start() {
 	
@@ -44,9 +46,9 @@ function Sphere(x, y, color) {
 		return Math.sqrt(this.xVel * this.xVel + this.yVel * this.yVel);
 	};
 	this.changeSpeed = function(delta){
-		var speed = getSpeed();
+		var speed = this.getSpeed();
 		speed += delta;
-		var factor = speed / getSpeed;
+		var factor = speed / this.getSpeed;
 		this.xVel *= factor;
 		this.yVel *= factor;
 	};
@@ -63,6 +65,11 @@ function Sphere(x, y, color) {
 		this.x = x; this.y = y;
 	};
 }
+
+console.log("Executed game.js");
+
+var playerOne = new Sphere(30, 30, "yellow");
+playerOne.draw();
 
 document.onkeydown = keyDown;
 document.onkeyup = keyUp;
@@ -94,5 +101,3 @@ function keyUp(event) {
 		document.getElementById("debug").innerHTML = "DownUp";
 	}
 }
-
-console.log("Executed game.js");
