@@ -110,7 +110,7 @@ var bumperOne = new Bumper(200, 200);
 //var bumperFour = new Bumper(canvasWidth*2/3, canvasHeight*2/3);
 //var bumpers = [bumperOne, bumperTwo, bumperThree, bumperFour];
 var bumpers = [];
-bumper.push(bumperOne);
+bumpers.push(bumperOne);
 
 console.log("Executed app.js");
 
@@ -137,6 +137,6 @@ io.sockets.on('connection', function(socket){
 		io.emit('playerOne', playerOne);
 		io.emit('playerTwo', playerTwo);
 		io.emit('bumpers', bumpers);
-		io.emit('debug', "Two clients connected");
+		io.emit('debug', bumpers.length);
 	}
 });

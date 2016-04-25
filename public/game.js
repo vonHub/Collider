@@ -114,7 +114,7 @@ function drawBumpers(){
 		var canvas = document.getElementById("gameCanvas");
 		var ctx = canvas.getContext("2d");
 		ctx.beginPath();
-		ctx.arc(bumper.x, bumper.y, bumper.radius, 0, 2 * Math.PI);
+		ctx.arc(200, 200, 15, 0, 2 * Math.PI);
 		ctx.stroke();
 		ctx.fillStyle = "brown";
 		ctx.fill();
