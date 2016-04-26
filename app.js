@@ -138,7 +138,7 @@ function processInputs(player, inputs){
 		player.changeYVel(player.acceleration);
 	}
 	if (inputs[4] == 1){	// Brake
-		player.changeSpeed(-player.acceleration);
+		player.changeYVel(-player.acceleration);
 	}
 };
 
