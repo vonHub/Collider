@@ -147,7 +147,7 @@ function processInputs(player, inputs){
 };
 
 function checkBumperCollision(player) {
-	for (var i = 0; i < 4; i++) {
+	for (var i = 0; i < bumpers.length; i++) {
 		var b = bumpers[i];
 		var distance = (b.x - player.x) * (b.x - player.x);
 		distance += (b.y - player.y) * (b.y - player.y);
