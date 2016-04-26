@@ -53,7 +53,7 @@ function Sphere(x, y, color) {
 	this.color = color;
 	this.radius = 15;
 	this.acceleration = .2;
-	this.maxSpeed = 30;
+	this.maxSpeed = 5;
 	this.xVel = 0;
 	this.yVel = 0;
 	this.id = 0;
@@ -288,7 +288,7 @@ io.sockets.on('connection', function(socket){
 		
 		checkBumperCollision(playerOne);
 		checkBumperCollision(playerTwo);
-		//checkPlayerCollision();
+		checkPlayerCollision();
 		
 		playerOne.move();
 		playerTwo.move();
