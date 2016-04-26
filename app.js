@@ -111,6 +111,9 @@ function Bumper(x, y){
 
 var playerOne = new Sphere(15, 15, "green");
 var playerTwo = new Sphere(485, 485, "blue");
+var playerOneScore = 0;
+var playerTwoScore = 0;
+
 var bumpers = [];
 var bumperOne = new Bumper(canvasWidth*1/3, canvasHeight*1/3);
 var bumperTwo = new Bumper(canvasWidth*1/3, canvasHeight*2/3);
@@ -148,7 +151,12 @@ function checkBumperCollision(player) {
 		var distance = (b.x - player.x) * (b.x - player.x);
 		distance += (b.y - player.y) * (b.y - player.y);
 		distance = Math.sqrt(distance);
-		if (distance < b.radius + player.radius){
+		if (distance < b.radius + player.radius){	// Collided with bumper
+			if (player == playerOne) {
+				playerTwoScore++;
+			} else if (player == playerTwo) {
+				playerOneScore++;
+			}
 			// So the velocity of the player needs to be
 			// reflected over the line between the bumper
 			// and the player.
@@ -166,8 +174,13 @@ function checkBumperCollision(player) {
 					var phi = Math.atan(playerSlope);
 					phi = theta + (theta - phi);
 					var speed = player.getSpeed();
-					player.xVel = Math.cos(phi) * speed;
-					player.yVel = Math.sin(phi) * speed;
+					if (player.x > b.x) {
+						player.xVel = Math.cos(phi) * speed;
+						player.yVel = Math.sin(phi) * speed;
+					} else {
+						player.xVel = -Math.cos(phi) * speed;
+						player.yVel = -Math.sin(phi) * speed;
+					}
 				}
 			}
 		}
@@ -211,6 +224,7 @@ io.sockets.on('connection', function(socket){
 		
 		io.emit('playerOne', playerOne);
 		io.emit('playerTwo', playerTwo);
+		io.emit('scores', [playerOneScore, playerTwoScore]);
 		
 		io.emit('draw');
 		
