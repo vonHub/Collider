@@ -52,7 +52,7 @@ function Sphere(x, y, color) {
 	this.y = y;
 	this.color = color;
 	this.radius = 15;
-	this.acceleration = .2;
+	this.acceleration = .15;
 	this.maxSpeed = 5;
 	this.xVel = 0;
 	this.yVel = 0;
@@ -75,8 +75,8 @@ function Sphere(x, y, color) {
 			this.y = canvasHeight - this.radius;
 		}
 		if (this.getSpeed() > this.maxSpeed) {
-			this.xVel = this.xVel * .98;
-			this.yVel = this.yVel * .98;
+			this.xVel = this.xVel * .95;
+			this.yVel = this.yVel * .95;
 		}
 	};
 	this.changeXVel = function(delta){
@@ -107,7 +107,7 @@ function Sphere(x, y, color) {
 function Bumper(x, y){
 	this.x = x;
 	this.y = y;
-	this.radius = 15;
+	this.radius = 20;
 }
 
 var playerOne = new Sphere(15, 15, "green");
@@ -116,15 +116,15 @@ var playerOneScore = 0;
 var playerTwoScore = 0;
 
 var bumpers = [];
-var bumperOne = new Bumper(canvasWidth*1/3, canvasHeight*1/3);
-var bumperTwo = new Bumper(canvasWidth*1/3, canvasHeight*2/3);
-var bumperThree = new Bumper(canvasWidth*2/3, canvasHeight*1/3);
-var bumperFour = new Bumper(canvasWidth*2/3, canvasHeight*2/3);
+var bumperOne = new Bumper(canvasWidth*1/4, canvasHeight*3/4);
+var bumperTwo = new Bumper(canvasWidth*3/4, canvasHeight*1/4);
+//var bumperThree = new Bumper(canvasWidth*2/3, canvasHeight*1/3);
+//var bumperFour = new Bumper(canvasWidth*2/3, canvasHeight*2/3);
 //var bumpers = [bumperOne, bumperTwo, bumperThree, bumperFour];
 bumpers.push(bumperOne);
 bumpers.push(bumperTwo);
-bumpers.push(bumperThree);
-bumpers.push(bumperFour);
+//bumpers.push(bumperThree);
+//bumpers.push(bumperFour);
 
 // console.log("Executed app.js");
 
