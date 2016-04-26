@@ -139,6 +139,27 @@ function processInputs(player, inputs){
 	}
 };
 
+function checkBumperCollision(player) {
+	for (var i = 0; i < 4; i++) {
+		var b = bumpers[i];
+		var distance = (b.x - player.x) * (b.x - player.x);
+		distance += (b.y - player.y) * (b.y - player.y);
+		distance = Math.sqrt(distance);
+		if (distance < b.radius + player.radius){
+			// So the velocity of the player needs to be
+			// reflected over the line between the bumper
+			// and the player.
+			var yDiff = b.y - player.y;
+			var xDiff = b.x - player.x;
+			//if (xDiff == 0) {	// Going straight up or straight down
+				player.yVel = -player.yVel;
+			//} else {
+			//	var slope = yDiff / xDiff;
+			//}
+		}
+	}
+}
+
 var clients = [];
 var advanceGame;
 
@@ -168,10 +189,11 @@ io.sockets.on('connection', function(socket){
 		
 		io.emit('getInputs');
 		
+		checkBumperCollision(playerOne);
+		checkBumperCollision(playerTwo);
+		
 		playerOne.move();
 		playerTwo.move();
-		console.log("Player one x: " + playerOne.x);
-		console.log("Player two x: " + playerTwo.x);
 		
 		io.emit('playerOne', playerOne);
 		io.emit('playerTwo', playerTwo);
