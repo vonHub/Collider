@@ -212,7 +212,7 @@ function checkPlayerCollision(){
 		} else {
 			phi = Math.atan(diffY/diffX);
 		}
-		if (phi < 0) phi += Math.PI;
+		if (diffX < 0) phi += Math.PI;
 		/*
 		var playerOneAngle;
 		if (playerOne.xVel == 0) {
