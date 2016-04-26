@@ -137,6 +137,9 @@ function processInputs(player, inputs){
 	if (inputs[3] == 1){	// Down
 		player.changeYVel(player.acceleration);
 	}
+	if (inputs[4] == 1){	// Brake
+		player.changeSpeed(-player.acceleration);
+	}
 };
 
 function checkBumperCollision(player) {
