@@ -198,8 +198,9 @@ function checkBumperCollision(player) {
 }
 
 function checkPlayerCollision(){
-	var diffY = playerOne.y - playerTwo.y;
-	var diffX = playerOne.x - playerTwo.x;
+	var diffY = playerTwo.y - playerOne.y;
+	var diffX = playerTwo.x - playerOne.x;
+	//[diffX, diffY] is now a vector pointing from playerOne to playerTwo
 	var distance = diffX * diffX;
 	distance += diffY * diffY;
 	distance = Math.sqrt(distance);
@@ -250,10 +251,12 @@ function checkPlayerCollision(){
 		playerTwo.xVel = playerTwoSpeed * Math.cos(playerTwoAngle);
 		playerTwo.yVel = playerTwoSpeed * Math.sin(playerTwoAngle);
 		*/
-		playerOne.xVel = playerOne.maxSpeed * Math.cos(phi + Math.PI);
-		playerOne.yVel = playerOne.maxSpeed * Math.sin(phi + Math.PI);
-		playerTwo.xVel = playerOne.maxSpeed * Math.cos(phi);
-		playerTwo.yVel = playerOne.maxSpeed * Math.sin(phi);
+		diffX = diffX / distance * playerOne.maxSpeed;
+		diffY = diffY / distance * playerOne.maxSpeed;
+		playerTwo.xVel = diffX;
+		playerTwo.yVel = diffY;
+		playerOne.xVel = -diffX;
+		playerOne.yVel = -diffY;
 	}
 }
 
