@@ -153,7 +153,7 @@ function drawBumpers(){
 		ctx.beginPath();
 		ctx.arc(bumpers[b].x, bumpers[b].y, bumpers[b].radius, 0, 2 * Math.PI);
 		ctx.stroke();
-		ctx.fillStyle = b.color;
+		ctx.fillStyle = bumpers[b].color;
 		ctx.fill();
 	}
 }
