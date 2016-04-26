@@ -204,6 +204,7 @@ function checkPlayerCollision(){
 			phi = Math.atan(diffY/diffX);
 		}
 		if (phi < 0) phi += Math.PI;
+		/*
 		var playerOneAngle;
 		if (playerOne.xVel == 0) {
 			playerOneAngle = Math.PI/2;
@@ -239,6 +240,11 @@ function checkPlayerCollision(){
 		playerOne.yVel = playerOneSpeed * Math.sin(playerOneAngle);
 		playerTwo.xVel = playerTwoSpeed * Math.cos(playerTwoAngle);
 		playerTwo.yVel = playerTwoSpeed * Math.sin(playerTwoAngle);
+		*/
+		playerOne.xVel = playerOne.maxSpeed * Math.cos(-phi);
+		playerOne.yVel = playerOne.maxSpeed * Math.sin(-phi);
+		playerTwo.xVel = playerOne.maxSpeed * Math.cos(phi);
+		playerTwo.yVel = playerOne.maxSpeed * Math.sin(phi);
 	}
 }
 
