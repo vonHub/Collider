@@ -109,7 +109,7 @@ socket.on('scores', function(scores){
 });
 
 socket.on('debug', function(data){
-	document.getElementById("debug").innerHTML = data;
+	//document.getElementById("debug").innerHTML = data;
 });
 
 function draw(){
