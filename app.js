@@ -302,7 +302,7 @@ io.sockets.on('connection', function(socket){
 		
 		io.emit('draw');
 		
-	}, 30);
+	}, 15);
 	
 	socket.on('inputs', function(inputs){
 		
