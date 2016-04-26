@@ -279,7 +279,7 @@ io.sockets.on('connection', function(socket){
 		
 		checkBumperCollision(playerOne);
 		checkBumperCollision(playerTwo);
-		checkPlayerCollision();
+		//checkPlayerCollision();
 		
 		playerOne.move();
 		playerTwo.move();
