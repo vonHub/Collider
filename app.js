@@ -241,8 +241,8 @@ function checkPlayerCollision(){
 		playerTwo.xVel = playerTwoSpeed * Math.cos(playerTwoAngle);
 		playerTwo.yVel = playerTwoSpeed * Math.sin(playerTwoAngle);
 		*/
-		playerOne.xVel = playerOne.maxSpeed * Math.cos(-phi);
-		playerOne.yVel = playerOne.maxSpeed * Math.sin(-phi);
+		playerOne.xVel = playerOne.maxSpeed * Math.cos(phi + Math.PI);
+		playerOne.yVel = playerOne.maxSpeed * Math.sin(phi + Math.PI);
 		playerTwo.xVel = playerOne.maxSpeed * Math.cos(phi);
 		playerTwo.yVel = playerOne.maxSpeed * Math.sin(phi);
 	}
