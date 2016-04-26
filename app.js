@@ -185,6 +185,14 @@ function checkBumperCollision(player) {
 					player.yVel = -Math.sin(phi) * speed;
 				}
 			}
+			// Now move to the edge of the bumper
+			while (distance < b.radius + player.radius) {
+				player.x += player.xVel * .01;
+				player.y += player.yVel * .01;
+				distance = (b.x - player.x) * (b.x - player.x);
+				distance += (b.y - player.y) * (b.y - player.y);
+				distance = Math.sqrt(distance);
+			}
 		}
 	}
 }
