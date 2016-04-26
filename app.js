@@ -151,11 +151,22 @@ function checkBumperCollision(player) {
 			// and the player.
 			var yDiff = b.y - player.y;
 			var xDiff = b.x - player.x;
-			//if (xDiff == 0) {	// Going straight up or straight down
+			if (xDiff == 0) {	// Hit exact top of bumper
 				player.yVel = -player.yVel;
-			//} else {
-			//	var slope = yDiff / xDiff;
-			//}
+			} else {
+				var slope = yDiff / xDiff;
+				if (player.xVel == 0) {	// Heading straight down
+					
+				} else {
+					var playerSlope = player.yVel / player.xVel;
+					var theta = Math.atan(slope);
+					var phi = Math.atan(playerSlope);
+					phi = theta + (theta - phi);
+					var speed = player.getSpeed();
+					player.xVel = Math.cos(phi) * speed;
+					player.yVel = Math.sin(phi) * speed;
+				}
+			}
 		}
 	}
 }
