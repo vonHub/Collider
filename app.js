@@ -108,6 +108,17 @@ function Bumper(x, y){
 	this.x = x;
 	this.y = y;
 	this.radius = 20;
+	this.color = "brown";
+	this.hitTime = 20;
+	this.hitTimer = 0;
+	this.act = function(){
+		if (hitTimer > 0) {
+			this.color = "white";
+			hitTimer--;
+		} else {
+			this.color = "brown";
+		}
+	};
 }
 
 var playerOne = new Sphere(15, 15, "green");
@@ -153,6 +164,9 @@ function checkBumperCollision(player) {
 		distance += (b.y - player.y) * (b.y - player.y);
 		distance = Math.sqrt(distance);
 		if (distance < b.radius + player.radius){	// Collided with bumper
+		
+			b.hitTimer = b.hitTime;
+		
 			if (player == playerOne) {
 				playerTwoScore++;
 			} else if (player == playerTwo) {
@@ -283,7 +297,8 @@ io.sockets.on('connection', function(socket){
 		io.emit('playerOne', playerOne);
 		io.emit('playerTwo', playerTwo);
 		io.emit('bumpers', bumpers);
-	}
+		
+		
 	
 	advanceGame = setInterval(function(){
 		
@@ -316,4 +331,5 @@ io.sockets.on('connection', function(socket){
 		}
 		
 	});
+	}
 });

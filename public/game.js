@@ -73,7 +73,18 @@ function Sphere(x, y, color) {
 function Bumper(x, y){
 	this.x = x;
 	this.y = y;
-	this.radius = 15;
+	this.radius = 20;
+	this.color = "brown";
+	this.hitTime = 20;
+	this.hitTimer = 0;
+	this.act = function(){
+		if (hitTimer > 0) {
+			this.color = "white";
+			hitTimer--;
+		} else {
+			this.color = "brown";
+		}
+	};
 }
 
 var playerOne;
@@ -142,7 +153,7 @@ function drawBumpers(){
 		ctx.beginPath();
 		ctx.arc(bumpers[b].x, bumpers[b].y, bumpers[b].radius, 0, 2 * Math.PI);
 		ctx.stroke();
-		ctx.fillStyle = "brown";
+		ctx.fillStyle = b.color;
 		ctx.fill();
 	}
 }
