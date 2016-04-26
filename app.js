@@ -203,18 +203,42 @@ function checkPlayerCollision(){
 		} else {
 			phi = Math.atan(diffY/diffX);
 		}
+		if (phi < 0) phi += Math.PI;
 		var playerOneAngle;
 		if (playerOne.xVel == 0) {
 			playerOneAngle = Math.PI/2;
 		} else {
 			playerOneAngle = Math.atan(playerOne.yVel/playerOne.xVel);
 		}
+		if (playerOne.xVel < 0) playerOneAngle += Math.PI;
 		var playerTwoAngle;
 		if (playerTwo.xVel == 0) {
 			playerTwoAngle = Math.PI/2;
 		} else {
 			playerTwoAngle = Math.atan(playerTwo.yVel/playerTwo.xVel);
 		}
+		if (playerTwo.xVel < 0) playerTwoAngle += Math.PI;
+		var playerOneSpeed = playerOne.getSpeed();
+		var playerTwoSpeed = playerTwo.getSpeed();
+		
+		playerOneAngle -= phi;
+		playerTwoAngle -= phi;
+		
+		playerOne.xVel = playerTwoSpeed * Math.cos(playerTwoAngle);
+		playerOne.yVel = playerOneSpeed * Math.sin(playerOneAngle);
+		playerTwo.xVel = playerOneSpeed * Math.cos(playerOneAngle);
+		playerTwo.yVel = playerTwoSpeed * Math.sin(playerTwoAngle);
+		
+		playerOneSpeed = playerOne.getSpeed();
+		playerTwoSpeed = playerTwo.getSpeed();
+		
+		playerOneAngle += phi;
+		playerTwoAngle += phi;
+		
+		playerOne.xVel = playerOneSpeed * Math.cos(playerOneAngle);
+		playerOne.yVel = playerOneSpeed * Math.sin(playerOneAngle);
+		playerTwo.xVel = playerTwoSpeed * Math.cos(playerTwoAngle);
+		playerTwo.yVel = playerTwoSpeed * Math.sin(playerTwoAngle);
 	}
 }
 
