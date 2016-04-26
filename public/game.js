@@ -52,6 +52,10 @@ function Sphere(x, y, color) {
 		this.xVel *= factor;
 		this.yVel *= factor;
 	};
+	this.multSpeed = function(delta){
+		this.xVel *= delta;
+		this.yVel *= delta;
+	}
 	this.draw = function(){
 		var canvas = document.getElementById("gameCanvas");
 		var ctx = canvas.getContext("2d");
@@ -101,7 +105,7 @@ socket.on('getInputs', function(){
 
 socket.on('scores', function(scores){
 	var text = "Player 1: " + scores[0] + "     Player 2: " + scores[1];
-	document.getElementById(lblScore).innerHTML = text;
+	document.getElementById("lblScore").innerHTML = text;
 });
 
 socket.on('debug', function(data){

@@ -166,23 +166,54 @@ function checkBumperCollision(player) {
 				player.yVel = -player.yVel;
 			} else {
 				var slope = yDiff / xDiff;
+				var phi;
 				if (player.xVel == 0) {	// Heading straight down
-					
+					phi = Math.PI/2;
 				} else {
 					var playerSlope = player.yVel / player.xVel;
-					var theta = Math.atan(slope);
-					var phi = Math.atan(playerSlope);
-					phi = theta + (theta - phi);
-					var speed = player.getSpeed();
-					if (player.x > b.x) {
-						player.xVel = Math.cos(phi) * speed;
-						player.yVel = Math.sin(phi) * speed;
-					} else {
-						player.xVel = -Math.cos(phi) * speed;
-						player.yVel = -Math.sin(phi) * speed;
-					}
+					phi = Math.atan(playerSlope);
+				}
+				var theta = Math.atan(slope);
+				phi = theta + (theta - phi);
+				var speed = player.getSpeed();
+				if (player.x > b.x) {
+					player.xVel = Math.cos(phi) * speed;
+					player.yVel = Math.sin(phi) * speed;
+				} else {
+					player.xVel = -Math.cos(phi) * speed;
+					player.yVel = -Math.sin(phi) * speed;
 				}
 			}
+		}
+	}
+}
+
+function checkPlayerCollision(){
+	var diffY = playerOne.y - playerTwo.y;
+	var diffX = playerOne.x - playerTwo.x;
+	var distance = diffX * diffX;
+	distance += diffY * diffY;
+	distance = Math.sqrt(distance);
+	if (distance < playerOne.radius + playerTwo.radius){	// Collided with each other
+		// I want this to be a perfectly elastic collision.
+		// How to calculate...
+		var phi;
+		if (diffX == 0) {
+			phi = Math.PI/2;
+		} else {
+			phi = Math.atan(diffY/diffX);
+		}
+		var playerOneAngle;
+		if (playerOne.xVel == 0) {
+			playerOneAngle = Math.PI/2;
+		} else {
+			playerOneAngle = Math.atan(playerOne.yVel/playerOne.xVel);
+		}
+		var playerTwoAngle;
+		if (playerTwo.xVel == 0) {
+			playerTwoAngle = Math.PI/2;
+		} else {
+			playerTwoAngle = Math.atan(playerTwo.yVel/playerTwo.xVel);
 		}
 	}
 }
@@ -218,6 +249,7 @@ io.sockets.on('connection', function(socket){
 		
 		checkBumperCollision(playerOne);
 		checkBumperCollision(playerTwo);
+		checkPlayerCollision();
 		
 		playerOne.move();
 		playerTwo.move();
