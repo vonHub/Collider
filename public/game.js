@@ -132,7 +132,8 @@ socket.on('victory', function(message){
 	var ctx = canvas.getContext("2d");
 	ctx.font = "30px Arial";
 	ctx.fillStyle = "yellow";
-	ctx.fillText(message, 100, 150);
+	ctx.textAlign = "center";
+	ctx.fillText(message,250, 250);
 });
 
 socket.on('debug', function(data){

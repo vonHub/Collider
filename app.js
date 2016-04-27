@@ -259,11 +259,11 @@ function finishGame(){
 	io.emit('clear');
 	var victor;
 	if (playerOneScore > playerTwoScore) {
-		victor = "Player 1 Wins!";
+		victor = "PLAYER 1 WINS!";
 	} else if (playerTwoScore > playerOneScore) {
-		victor = "Player 2 Wins!";
+		victor = "PLAYER 2 WINS!";
 	} else {
-		victor = "Tie!";
+		victor = "TIE!";
 	}
 	io.emit('victory', victor);
 }
