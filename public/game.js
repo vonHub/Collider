@@ -5,10 +5,6 @@ var socket = io();
 var canvasWidth = 500;
 var canvasHeight = 500;
 
-function start() {
-	
-}
-
 function Sphere(x, y, color) {
 	this.x = x;
 	this.y = y;
@@ -112,6 +108,7 @@ socket.on('draw', function(){
 
 socket.on('getInputs', function(){
 	socket.emit('inputs', inputs);
+	socket.emit('test', "data");
 	document.getElementById('debug').innerHTML = "Inputs: " + inputs[0] + " " + inputs[1] + " " + inputs[2] + " " + inputs[3];
 });
 

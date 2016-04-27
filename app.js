@@ -167,7 +167,7 @@ function processInputs(player, inputs){
 	if (inputs[4] == 1){	// Brake
 		player.changeYVel(-player.acceleration);
 	}
-};
+}
 
 function checkBumperCollision(player) {
 	for (var i = 0; i < bumpers.length; i++) {
@@ -365,6 +365,9 @@ io.sockets.on('connection', function(socket){
 				io.emit('debug', "Wrong socket id");
 			}
 			
+		});
+		socket.on('test', function(data){
+			console.log(data);
 		});
 	}
 });
