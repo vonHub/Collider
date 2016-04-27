@@ -305,7 +305,9 @@ io.sockets.on('connection', function(socket){
   		console.log('a user disconnected');
   		if (clients.length == 1) {
   			clearInterval(advanceGame);
+  			finishGame();
   			initTimers();
+  			io.emit('info', "Waiting for player 2");
   		}
 	});
 		
