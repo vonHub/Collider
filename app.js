@@ -290,6 +290,22 @@ io.sockets.on('connection', function(socket){
 		if (index >= 0) clients.splice(index, 1);
   		console.log('a user disconnected');
 	});
+		
+	socket.on('inputs', function(inputs){
+		
+		//console.log("Inputs received");
+		if (playerOne.id == socket.id) {
+			processInputs(playerOne, inputs);
+			io.emit('debug', "Received");
+			//console.log("Player one input: " + inputs[0] + " " + inputs[1] + " " + inputs[2] + " " + inputs[3]);
+		} else if (playerTwo.id == socket.id) {
+			processInputs(playerTwo, inputs);
+			//console.log("Player two input: " + inputs[0] + " " + inputs[1] + " " + inputs[2] + " " + inputs[3]);
+		} else {
+			io.emit('debug', "Wrong socket id");
+		}
+		
+	});
 	
 	if (clients.length < 2 && clients.indexOf(socket.id) < 0) {
 		clients.push(socket.id);		
@@ -350,22 +366,6 @@ io.sockets.on('connection', function(socket){
 			}
 			
 		}, frameTime);
-		
-		socket.on('inputs', function(inputs){
-			
-			//console.log("Inputs received");
-			if (playerOne.id == socket.id) {
-				processInputs(playerOne, inputs);
-				io.emit('debug', "Received");
-				//console.log("Player one input: " + inputs[0] + " " + inputs[1] + " " + inputs[2] + " " + inputs[3]);
-			} else if (playerTwo.id == socket.id) {
-				processInputs(playerTwo, inputs);
-				//console.log("Player two input: " + inputs[0] + " " + inputs[1] + " " + inputs[2] + " " + inputs[3]);
-			} else {
-				io.emit('debug', "Wrong socket id");
-			}
-			
-		});
 		socket.on('test', function(data){
 			console.log(data);
 		});
