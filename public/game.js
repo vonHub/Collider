@@ -123,6 +123,17 @@ socket.on('info', function(string){
 	document.getElementById('lblTime').innerHTML = string;
 });
 
+socket.on('clear', function(){
+	clearCanvas();
+});
+
+socket.on('victory', function(message){
+	var canvas = document.getElementById("gameCanvas");
+	var ctx = canvas.getContext("2d");
+	ctx.font = "30px Arial";
+	ctx.fillText(message, 100, 150);
+});
+
 socket.on('debug', function(data){
 	//document.getElementById("debug").innerHTML = data;
 });

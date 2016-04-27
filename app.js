@@ -124,6 +124,13 @@ var playerTwo = new Sphere(485, 485, "blue");
 var playerOneScore = 0;
 var playerTwoScore = 0;
 
+function initPlayers(){
+	playerOne = new Sphere(15, 15, "green");
+	playerTwo = new Sphere(15, 15, "blue");
+	playerOneScore = 0;
+	playerTwoScore = 0;
+}
+
 var bumpers = [];
 var bumperOne = new Bumper(canvasWidth*1/4, canvasHeight*3/4);
 var bumperTwo = new Bumper(canvasWidth*3/4, canvasHeight*1/4);
@@ -241,7 +248,21 @@ function processBumpers(){
 }
 
 function prepareArena(){
-	
+	initPlayers();
+}
+
+function finishGame(){
+	// Clear arena and display victory message
+	io.emit('clear');
+	var victor;
+	if (playerOneScore > playerTwoScore) {
+		victor = "Player 1 Wins!";
+	} else if (playerTwoScore > playerOneScore) {
+		victor = "Player 2 Wins!";
+	} else {
+		victor = "Tie!";
+	}
+	io.emit('victory', victor);
 }
 
 var clients = [];
@@ -313,6 +334,7 @@ io.sockets.on('connection', function(socket){
 				if (gameTime <= 0) {
 					gameTime = 0;
 					betweenGames = timeBetween;
+					finishGame();
 				}
 				
 				var timeRemaining = Math.ceil(gameTime / 1000);
