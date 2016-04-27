@@ -112,6 +112,9 @@ socket.on('draw', function(){
 
 socket.on('getInputs', function(){
 	socket.emit('inputs', inputs);
+	if (socket.id == playerTwo.id) {
+		document.getElementById('debug').innerHTML = "Inputs sent";
+	}
 });
 
 socket.on('scores', function(scores){

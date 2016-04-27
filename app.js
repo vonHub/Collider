@@ -322,13 +322,13 @@ io.sockets.on('connection', function(socket){
 			
 				io.emit('getInputs');
 				
-				//checkBumperCollision(playerOne);
-				//checkBumperCollision(playerTwo);
-				//checkPlayerCollision();
+				checkBumperCollision(playerOne);
+				checkBumperCollision(playerTwo);
+				checkPlayerCollision();
 				
 				playerOne.move();
 				playerTwo.move();
-				//processBumpers();
+				processBumpers();
 				
 				io.emit('playerOne', playerOne);
 				io.emit('playerTwo', playerTwo);
@@ -336,8 +336,6 @@ io.sockets.on('connection', function(socket){
 				io.emit('bumpers', bumpers);
 				
 				io.emit('draw');
-				
-				//io.emit('debug', playerOne.xVel);
 				
 				gameTime -= frameTime;
 				if (gameTime <= 0) {
