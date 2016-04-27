@@ -123,12 +123,15 @@ var playerOne = new Sphere(15, 15, "green");
 var playerTwo = new Sphere(485, 485, "blue");
 var playerOneScore = 0;
 var playerTwoScore = 0;
+var clients;
 
 function initPlayers(){
 	playerOne = new Sphere(15, 15, "green");
 	playerTwo = new Sphere(485, 485, "blue");
 	playerOneScore = 0;
 	playerTwoScore = 0;
+	playerOne.id = clients[0];
+	playerTwo.id = clients[1];
 }
 
 var bumpers = [];
@@ -265,7 +268,6 @@ function finishGame(){
 	io.emit('victory', victor);
 }
 
-var clients = [];
 var timeBetween = 5000;	// 4 seconds
 var betweenGames = 0;
 var gameDuration = 60000;
