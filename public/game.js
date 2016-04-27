@@ -1,87 +1,11 @@
 /*eslint-env browser */
 /*globals io */
+
+// Written by Chris Von Hoene
+
+// Client has two main jobs: relay player inputs and display the arena.
+
 var socket = io();
-		
-var canvasWidth = 500;
-var canvasHeight = 500;
-
-function Sphere(x, y, color) {
-	this.x = x;
-	this.y = y;
-	this.color = color;
-	this.radius = 15;
-	this.acceleration = 1;
-	this.maxSpeed = 30;
-	this.xVel = 0;
-	this.yVel = 0;
-	this.move = function(){
-		this.x += this.xVel;
-		this.y += this.yVel;
-		if (this.x - this.radius < 0) {
-			this.xVel = -this.xVel;
-			this.x = this.radius;
-		} else if (this.x + this.radius > canvasWidth) {
-			this.xVel = -this.xVel;
-			this.x = canvasWidth - this.radius;
-		}
-		if (this.y - this.radius < 0) {
-			this.yVel = -this.yVel;
-			this.y = this.radius;
-		} else if (this.y + this.radius > canvasHeight) {
-			this.yVel = -this.yVel;
-			this.y = canvasHeight - this.radius;
-		}
-	};
-	this.changeXVel = function(delta){
-		this.xVel += delta;
-	};
-	this.changeYVel = function(delta){
-		this.yVel += delta;
-	};
-	this.getSpeed = function(){
-		return Math.sqrt(this.xVel * this.xVel + this.yVel * this.yVel);
-	};
-	this.changeSpeed = function(delta){
-		var speed = this.getSpeed();
-		speed += delta;
-		var factor = speed / this.getSpeed;
-		this.xVel *= factor;
-		this.yVel *= factor;
-	};
-	this.multSpeed = function(delta){
-		this.xVel *= delta;
-		this.yVel *= delta;
-	}
-	this.draw = function(){
-		var canvas = document.getElementById("gameCanvas");
-		var ctx = canvas.getContext("2d");
-		ctx.beginPath();
-		ctx.arc(this.x - this.radius, this.y - this.radius, this.radius, 0, 2 * Math.PI);
-		ctx.stroke();
-		ctx.fillStyle = this.color;
-		ctx.fill();
-	};
-	this.setPosition = function(x, y){
-		this.x = x; this.y = y;
-	};
-}
-
-function Bumper(x, y){
-	this.x = x;
-	this.y = y;
-	this.radius = 20;
-	this.color = "brown";
-	this.hitTime = 20;
-	this.hitTimer = 0;
-	this.act = function(){
-		if (this.hitTimer > 0) {
-			this.color = "white";
-			this.hitTimer--;
-		} else {
-			this.color = "brown";
-		}
-	};
-}
 
 var playerOne;
 var playerTwo;
@@ -106,6 +30,7 @@ socket.on('draw', function(){
 	draw();
 });
 
+// Relay player inputs to server
 socket.on('getInputs', function(){
 	socket.emit('inputs', inputs);
 	socket.emit('test', "data");
@@ -134,10 +59,13 @@ socket.on('victory', function(message){
 	ctx.fillText(message,250, 250);
 });
 
+// Debug element is commented out of game.html
+// Needs to be put back in for this to work
 socket.on('debug', function(data){
-	document.getElementById("debug").innerHTML = data;
+	//document.getElementById("debug").innerHTML = data;
 });
 
+// Draws the arena
 function draw(){
 	clearCanvas();
 	drawPlayer(playerOne);
@@ -145,6 +73,7 @@ function draw(){
 	drawBumpers();
 }
 
+// Clears the arena
 function clearCanvas(){
 	var canvas = document.getElementById("gameCanvas");
 	var ctx = canvas.getContext("2d");
@@ -172,6 +101,8 @@ function drawBumpers(){
 		ctx.fill();
 	}
 }
+
+// Get inputs from keyboard
 
 document.onkeydown = keyDown;
 document.onkeyup = keyUp;

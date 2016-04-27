@@ -1,36 +1,8 @@
 /*eslint-env node, browser*/
 
-//------------------------------------------------------------------------------
-// node.js starter application for Bluemix
-//------------------------------------------------------------------------------
+// Written by Chris Von Hoene for CS 252 final project.
 
-// This application uses express as its web server
-// for more info, see: http://expressjs.com
-
-/* // Original code here
-var express = require('express');
-
-// cfenv provides access to your Cloud Foundry environment
-// for more info, see: https://www.npmjs.com/package/cfenv
-var cfenv = require('cfenv');
-
-// create a new express server
-var app = express();
-
-// serve the files out of ./public as our main files
-app.use(express.static(__dirname + '/public'));
-
-// get the app environment from Cloud Foundry
-var appEnv = cfenv.getAppEnv();
-
-// start server on the specified port and binding host
-app.listen(appEnv.port, '0.0.0.0', function() {
-
-	// print a message when the server starts listening
-  console.log("server starting on " + appEnv.url);
-});
-*/
-
+// Set up initial environment variables
 var cfenv = require('cfenv');
 var appEnv = cfenv.getAppEnv();
 var express = require('express');
@@ -42,9 +14,11 @@ http.listen(appEnv.port, function(){
 	console.log('Listening on ' + appEnv.port);
 });
 
+// Canvas dimensions
 var canvasWidth = 500;
 var canvasHeight = 500;
 
+// Player object
 function Sphere(x, y, color) {
 	this.x = x;
 	this.y = y;
@@ -102,6 +76,7 @@ function Sphere(x, y, color) {
 	};
 }
 
+// Bumper object
 function Bumper(x, y){
 	this.x = x;
 	this.y = y;
@@ -119,6 +94,7 @@ function Bumper(x, y){
 	};
 }
 
+// Init players
 var playerOne = new Sphere(15, 15, "green");
 var playerTwo = new Sphere(485, 485, "blue");
 var playerOneScore = 0;
@@ -138,19 +114,14 @@ function initPlayers(){
 	playerTwoScore = 0;
 }
 
+// Init bumpers
 var bumpers = [];
 var bumperOne = new Bumper(canvasWidth*1/4, canvasHeight*3/4);
 var bumperTwo = new Bumper(canvasWidth*3/4, canvasHeight*1/4);
-//var bumperThree = new Bumper(canvasWidth*2/3, canvasHeight*1/3);
-//var bumperFour = new Bumper(canvasWidth*2/3, canvasHeight*2/3);
-//var bumpers = [bumperOne, bumperTwo, bumperThree, bumperFour];
 bumpers.push(bumperOne);
 bumpers.push(bumperTwo);
-//bumpers.push(bumperThree);
-//bumpers.push(bumperFour);
 
-// console.log("Executed app.js");
-
+// Take inputs and move players accordingly
 function processInputs(player, inputs){
 	if (inputs[0] == 1){	// Left
 		player.changeXVel(-player.acceleration);
@@ -169,6 +140,7 @@ function processInputs(player, inputs){
 	}
 }
 
+// Check for player collision with bumpers
 function checkBumperCollision(player) {
 	for (var i = 0; i < bumpers.length; i++) {
 		var b = bumpers[i];
@@ -189,6 +161,8 @@ function checkBumperCollision(player) {
 			// and the player.
 			var yDiff = b.y - player.y;
 			var xDiff = b.x - player.x;
+			
+			// Sophisticated, but buggy implementation
 			/*
 			if (xDiff == 0) {	// Hit exact top of bumper
 				player.yVel = -player.yVel;
@@ -221,6 +195,9 @@ function checkBumperCollision(player) {
 				distance = Math.sqrt(distance);
 			}
 			*/
+			
+			// Simple, robust implementation
+			// Good enough
 			var mag = xDiff * xDiff + yDiff * yDiff;
 			mag = Math.sqrt(mag);
 			xDiff /= mag;
@@ -231,6 +208,7 @@ function checkBumperCollision(player) {
 	}
 }
 
+// Check if players hit each other
 function checkPlayerCollision(){
 	var diffY = playerTwo.y - playerOne.y;
 	var diffX = playerTwo.x - playerOne.x;
@@ -247,6 +225,8 @@ function checkPlayerCollision(){
 		} else {
 			phi = Math.atan(diffY/diffX);
 		}
+		
+		// Very simple bouncing physics
 		diffX = diffX / distance * playerOne.maxSpeed;
 		diffY = diffY / distance * playerOne.maxSpeed;
 		playerTwo.xVel = diffX;
@@ -256,6 +236,7 @@ function checkPlayerCollision(){
 	}
 }
 
+// Advance bumper timers
 function processBumpers(){
 	for (var i = 0; i < bumpers.length; i++) {
 		bumpers[i].act();
@@ -266,8 +247,8 @@ function prepareArena(){
 	initPlayers();
 }
 
+// Clear arena and display victory message
 function finishGame(){
-	// Clear arena and display victory message
 	io.emit('clear');
 	var victor;
 	if (playerOneScore > playerTwoScore) {
@@ -280,6 +261,7 @@ function finishGame(){
 	io.emit('victory', victor);
 }
 
+// Set up time variables
 var timeBetween = 5000;	// 4 seconds
 var betweenGames = 0;
 var gameDuration = 60000;
@@ -299,18 +281,20 @@ io.sockets.on('connection', function(socket){
 	
     console.log('a user connected');
 	
+	// Remove from array and stop game
 	socket.on('disconnect', function(){
 		var index = clients.indexOf(socket.id);
 		if (index >= 0) clients.splice(index, 1);
   		console.log('a user disconnected');
-  		if (clients.length == 1) {
+  		if (clients.length == 1) {	// Player quit the game
   			clearInterval(advanceGame);
   			finishGame();
   			initTimers();
   			io.emit('info', "Waiting for player 2");
   		}
 	});
-		
+	
+	// React to inputs from clients
 	socket.on('inputs', function(inputs){
 		
 		//console.log("Inputs received");
@@ -327,10 +311,12 @@ io.sockets.on('connection', function(socket){
 		
 	});
 	
+	// Add client if 0 or 1 players already connected
 	if (clients.length < 2 && clients.indexOf(socket.id) < 0) {
 		clients.push(socket.id);		
 	}
 	
+	// Start game if two players are connected
 	if (clients.length == 2) {
 		playerOne.id = clients[0];
 		playerTwo.id = clients[1];
