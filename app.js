@@ -130,6 +130,10 @@ function initPlayers(){
 	playerOne.y = 15;
 	playerTwo.x = 485;
 	playerTwo.y = 485;
+	playerOne.xVel = 0;
+	playerTwo.xVel = 0;
+	playerOne.yVel = 0;
+	playerTwo.yVel = 0;
 	playerOneScore = 0;
 	playerTwoScore = 0;
 }
