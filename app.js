@@ -277,6 +277,12 @@ var betweenGames = 0;
 var gameDuration = 60000;
 var gameTime = 0;	// 60 seconds
 var frameTime = 15;	// 15 milliseconds
+
+function initTimers(){
+	betweenGames = timeBetween;
+	gameTime = 0;
+}
+
 var info;
 
 var advanceGame;
@@ -289,6 +295,10 @@ io.sockets.on('connection', function(socket){
 		var index = clients.indexOf(socket.id);
 		if (index >= 0) clients.splice(index, 1);
   		console.log('a user disconnected');
+  		if (clients.length == 1) {
+  			clearInterval(advanceGame);
+  			initTimers();
+  		}
 	});
 		
 	socket.on('inputs', function(inputs){
@@ -366,8 +376,5 @@ io.sockets.on('connection', function(socket){
 			}
 			
 		}, frameTime);
-		socket.on('test', function(data){
-			console.log(data);
-		});
 	}
 });
