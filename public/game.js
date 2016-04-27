@@ -130,7 +130,7 @@ socket.on('clear', function(){
 socket.on('victory', function(message){
 	var canvas = document.getElementById("gameCanvas");
 	var ctx = canvas.getContext("2d");
-	ctx.font = "30px Arial";
+	ctx.font = "30px Impact";
 	ctx.fillStyle = "yellow";
 	ctx.textAlign = "center";
 	ctx.fillText(message,250, 250);
