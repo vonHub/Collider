@@ -112,6 +112,7 @@ socket.on('draw', function(){
 
 socket.on('getInputs', function(){
 	socket.emit('inputs', inputs);
+	document.getElementById('debug').innerHTML = "I sent inputs";
 });
 
 socket.on('scores', function(scores){
