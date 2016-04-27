@@ -362,6 +362,8 @@ io.sockets.on('connection', function(socket){
 			} else if (playerTwo.id == socket.id) {
 				processInputs(playerTwo, inputs);
 				console.log("Player two input: " + inputs[0] + " " + inputs[1] + " " + inputs[2] + " " + inputs[3]);
+			} else {
+				io.emit('debug', "Wrong socket id");
 			}
 			
 		});
