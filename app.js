@@ -351,7 +351,7 @@ io.sockets.on('connection', function(socket){
 			
 		}, frameTime);
 		
-		socket.on('inputs', function(inputs){
+		io.sockets.on('inputs', function(inputs){
 			
 			//console.log("Inputs received");
 			if (playerOne.id == socket.id) {
