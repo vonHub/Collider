@@ -119,7 +119,7 @@ socket.on('scores', function(scores){
 	document.getElementById("lblScore").innerHTML = text;
 });
 
-socket.on('gameInfo', function(string){
+socket.on('info', function(string){
 	document.getElementById('lblTime').innerHTML = string;
 });
 

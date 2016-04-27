@@ -268,8 +268,7 @@ io.sockets.on('connection', function(socket){
 		betweenGames = timeBetween;
 		io.emit('playerOne', playerOne);
 		io.emit('playerTwo', playerTwo);
-		io.emit('bumpers', bumpers);
-		
+		io.emit('bumpers', bumpers);		
 		
 	
 		advanceGame = setInterval(function(){
@@ -286,7 +285,7 @@ io.sockets.on('connection', function(socket){
 				info = "Match starts in " + seconds;
 				io.emit('info', info);
 				
-			} else if (betweenGames <= 0 && clients.length > 1) {
+			} else if (betweenGames <= 0) {
 			
 				io.emit('getInputs');
 				
