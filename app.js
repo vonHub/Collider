@@ -126,12 +126,12 @@ var playerTwoScore = 0;
 var clients;
 
 function initPlayers(){
-	playerOne = new Sphere(15, 15, "green");
-	playerTwo = new Sphere(485, 485, "blue");
+	playerOne.x = 15;
+	playerOne.y = 15;
+	playerTwo.x = 485;
+	playerTwo.y = 485;
 	playerOneScore = 0;
 	playerTwoScore = 0;
-	playerOne.id = clients[0];
-	playerTwo.id = clients[1];
 }
 
 var bumpers = [];
