@@ -78,9 +78,9 @@ function Bumper(x, y){
 	this.hitTime = 20;
 	this.hitTimer = 0;
 	this.act = function(){
-		if (hitTimer > 0) {
+		if (this.hitTimer > 0) {
 			this.color = "white";
-			hitTimer--;
+			this.hitTimer--;
 		} else {
 			this.color = "brown";
 		}
