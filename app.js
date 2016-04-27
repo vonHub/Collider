@@ -126,7 +126,7 @@ var playerTwoScore = 0;
 
 function initPlayers(){
 	playerOne = new Sphere(15, 15, "green");
-	playerTwo = new Sphere(15, 15, "blue");
+	playerTwo = new Sphere(485, 485, "blue");
 	playerOneScore = 0;
 	playerTwoScore = 0;
 }
