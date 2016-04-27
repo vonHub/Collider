@@ -189,6 +189,7 @@ function checkBumperCollision(player) {
 			// and the player.
 			var yDiff = b.y - player.y;
 			var xDiff = b.x - player.x;
+			/*
 			if (xDiff == 0) {	// Hit exact top of bumper
 				player.yVel = -player.yVel;
 			} else {
@@ -219,6 +220,13 @@ function checkBumperCollision(player) {
 				distance += (b.y - player.y) * (b.y - player.y);
 				distance = Math.sqrt(distance);
 			}
+			*/
+			var mag = xDiff * xDiff + yDiff * yDiff;
+			mag = Math.sqrt(mag);
+			xDiff /= mag;
+			yDiff /= mag;
+			player.xVel = player.maxSpeed * -xDiff;
+			player.yVel = player.maxSpeed * -yDiff;
 		}
 	}
 }
