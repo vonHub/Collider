@@ -131,6 +131,7 @@ socket.on('victory', function(message){
 	var canvas = document.getElementById("gameCanvas");
 	var ctx = canvas.getContext("2d");
 	ctx.font = "30px Arial";
+	ctx.fillStyle = "yellow";
 	ctx.fillText(message, 100, 150);
 });
 
