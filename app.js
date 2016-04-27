@@ -296,13 +296,13 @@ io.sockets.on('connection', function(socket){
 		//console.log("Inputs received");
 		if (playerOne.id == socket.id) {
 			processInputs(playerOne, inputs);
-			io.emit('debug', "Received");
+			//io.emit('debug', "Received");
 			//console.log("Player one input: " + inputs[0] + " " + inputs[1] + " " + inputs[2] + " " + inputs[3]);
 		} else if (playerTwo.id == socket.id) {
 			processInputs(playerTwo, inputs);
 			//console.log("Player two input: " + inputs[0] + " " + inputs[1] + " " + inputs[2] + " " + inputs[3]);
 		} else {
-			io.emit('debug', "Wrong socket id");
+			//io.emit('debug', "Wrong socket id");
 		}
 		
 	});
