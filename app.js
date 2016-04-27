@@ -123,7 +123,7 @@ var playerOne = new Sphere(15, 15, "green");
 var playerTwo = new Sphere(485, 485, "blue");
 var playerOneScore = 0;
 var playerTwoScore = 0;
-var clients;
+var clients = [];
 
 function initPlayers(){
 	playerOne.x = 15;
