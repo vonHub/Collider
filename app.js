@@ -110,9 +110,9 @@ function Bumper(x, y){
 	this.hitTime = 20;
 	this.hitTimer = 0;
 	this.act = function(){
-		if (hitTimer > 0) {
+		if (this.hitTimer > 0) {
 			this.color = "white";
-			hitTimer--;
+			this.hitTimer--;
 		} else {
 			this.color = "brown";
 		}
@@ -234,6 +234,12 @@ function checkPlayerCollision(){
 	}
 }
 
+function processBumpers(){
+	for (var i = 0; i < bumpers.length; i++) {
+		bumpers[i].act();
+	}
+}
+
 function prepareArena(){
 	
 }
@@ -295,6 +301,7 @@ io.sockets.on('connection', function(socket){
 				
 				playerOne.move();
 				playerTwo.move();
+				processBumpers();
 				
 				io.emit('playerOne', playerOne);
 				io.emit('playerTwo', playerTwo);
