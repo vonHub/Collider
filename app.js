@@ -333,6 +333,7 @@ io.sockets.on('connection', function(socket){
 				io.emit('playerOne', playerOne);
 				io.emit('playerTwo', playerTwo);
 				io.emit('scores', [playerOneScore, playerTwoScore]);
+				io.emit('bumpers', bumpers);
 				
 				io.emit('draw');
 				
