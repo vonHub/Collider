@@ -336,6 +336,8 @@ io.sockets.on('connection', function(socket){
 				
 				io.emit('draw');
 				
+				io.emit('debug', playerOne.xVel);
+				
 				gameTime -= frameTime;
 				if (gameTime <= 0) {
 					gameTime = 0;
