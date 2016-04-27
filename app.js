@@ -336,7 +336,7 @@ io.sockets.on('connection', function(socket){
 				
 				io.emit('draw');
 				
-				io.emit('debug', playerOne.xVel);
+				//io.emit('debug', playerOne.xVel);
 				
 				gameTime -= frameTime;
 				if (gameTime <= 0) {
@@ -357,6 +357,7 @@ io.sockets.on('connection', function(socket){
 			console.log("Inputs received");
 			if (playerOne.id == socket.id) {
 				processInputs(playerOne, inputs);
+				io.emit('debug', "Received");
 				console.log("Player one input: " + inputs[0] + " " + inputs[1] + " " + inputs[2] + " " + inputs[3]);
 			} else if (playerTwo.id == socket.id) {
 				processInputs(playerTwo, inputs);
