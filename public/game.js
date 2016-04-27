@@ -119,6 +119,10 @@ socket.on('scores', function(scores){
 	document.getElementById("lblScore").innerHTML = text;
 });
 
+socket.on('gameInfo', function(string){
+	document.getElementById('lblTime').innerHTML = string;
+});
+
 socket.on('debug', function(data){
 	//document.getElementById("debug").innerHTML = data;
 });

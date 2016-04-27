@@ -45,8 +45,6 @@ http.listen(appEnv.port, function(){
 var canvasWidth = 500;
 var canvasHeight = 500;
 
-var timeRemaining = 60;
-
 function Sphere(x, y, color) {
 	this.x = x;
 	this.y = y;
@@ -227,44 +225,6 @@ function checkPlayerCollision(){
 		} else {
 			phi = Math.atan(diffY/diffX);
 		}
-		//if (diffX < 0) phi += Math.PI;
-		/*
-		var playerOneAngle;
-		if (playerOne.xVel == 0) {
-			playerOneAngle = Math.PI/2;
-		} else {
-			playerOneAngle = Math.atan(playerOne.yVel/playerOne.xVel);
-		}
-		if (playerOne.xVel < 0) playerOneAngle += Math.PI;
-		var playerTwoAngle;
-		if (playerTwo.xVel == 0) {
-			playerTwoAngle = Math.PI/2;
-		} else {
-			playerTwoAngle = Math.atan(playerTwo.yVel/playerTwo.xVel);
-		}
-		if (playerTwo.xVel < 0) playerTwoAngle += Math.PI;
-		var playerOneSpeed = playerOne.getSpeed();
-		var playerTwoSpeed = playerTwo.getSpeed();
-		
-		playerOneAngle -= phi;
-		playerTwoAngle -= phi;
-		
-		playerOne.xVel = playerTwoSpeed * Math.cos(playerTwoAngle);
-		playerOne.yVel = playerOneSpeed * Math.sin(playerOneAngle);
-		playerTwo.xVel = playerOneSpeed * Math.cos(playerOneAngle);
-		playerTwo.yVel = playerTwoSpeed * Math.sin(playerTwoAngle);
-		
-		playerOneSpeed = playerOne.getSpeed();
-		playerTwoSpeed = playerTwo.getSpeed();
-		
-		playerOneAngle += phi;
-		playerTwoAngle += phi;
-		
-		playerOne.xVel = playerOneSpeed * Math.cos(playerOneAngle);
-		playerOne.yVel = playerOneSpeed * Math.sin(playerOneAngle);
-		playerTwo.xVel = playerTwoSpeed * Math.cos(playerTwoAngle);
-		playerTwo.yVel = playerTwoSpeed * Math.sin(playerTwoAngle);
-		*/
 		diffX = diffX / distance * playerOne.maxSpeed;
 		diffY = diffY / distance * playerOne.maxSpeed;
 		playerTwo.xVel = diffX;
@@ -274,7 +234,18 @@ function checkPlayerCollision(){
 	}
 }
 
+function prepareArena(){
+	
+}
+
 var clients = [];
+var timeBetween = 5000;	// 4 seconds
+var betweenGames = 0;
+var gameDuration = 60000;
+var gameTime = 0;	// 60 seconds
+var frameTime = 15;	// 15 milliseconds
+var info;
+
 var advanceGame;
 
 io.sockets.on('connection', function(socket){
@@ -294,42 +265,68 @@ io.sockets.on('connection', function(socket){
 	if (clients.length == 2) {
 		playerOne.id = clients[0];
 		playerTwo.id = clients[1];
+		betweenGames = timeBetween;
 		io.emit('playerOne', playerOne);
 		io.emit('playerTwo', playerTwo);
 		io.emit('bumpers', bumpers);
 		
 		
 	
-	advanceGame = setInterval(function(){
+		advanceGame = setInterval(function(){
+			
+			if (betweenGames > 0) {
+				
+				betweenGames -= frameTime;
+				if (betweenGames <= 0) {
+					betweenGames = 0;
+					gameTime = gameDuration;
+					prepareArena();
+				}
+				var seconds = Math.ceil(betweenGames / 1000);
+				info = "Match starts in " + seconds;
+				io.emit('info', info);
+				
+			} else if (betweenGames <= 0 && clients.length > 1) {
+			
+				io.emit('getInputs');
+				
+				checkBumperCollision(playerOne);
+				checkBumperCollision(playerTwo);
+				checkPlayerCollision();
+				
+				playerOne.move();
+				playerTwo.move();
+				
+				io.emit('playerOne', playerOne);
+				io.emit('playerTwo', playerTwo);
+				io.emit('scores', [playerOneScore, playerTwoScore]);
+				
+				io.emit('draw');
+				
+				gameTime -= frameTime;
+				if (gameTime <= 0) {
+					gameTime = 0;
+					betweenGames = timeBetween;
+				}
+				
+				var timeRemaining = Math.ceil(gameTime / 1000);
+				info = "Time remaining: " + timeRemaining;
+				io.emit('info', info);
+			}
+			
+		}, frameTime);
 		
-		io.emit('getInputs');
-		
-		checkBumperCollision(playerOne);
-		checkBumperCollision(playerTwo);
-		checkPlayerCollision();
-		
-		playerOne.move();
-		playerTwo.move();
-		
-		io.emit('playerOne', playerOne);
-		io.emit('playerTwo', playerTwo);
-		io.emit('scores', [playerOneScore, playerTwoScore]);
-		
-		io.emit('draw');
-		
-	}, 15);
-	
-	socket.on('inputs', function(inputs){
-		
-		console.log("Inputs received");
-		if (playerOne.id == socket.id) {
-			processInputs(playerOne, inputs);
-			console.log("Player one input: " + inputs[0] + " " + inputs[1] + " " + inputs[2] + " " + inputs[3]);
-		} else if (playerTwo.id == socket.id) {
-			processInputs(playerTwo, inputs);
-			console.log("Player two input: " + inputs[0] + " " + inputs[1] + " " + inputs[2] + " " + inputs[3]);
-		}
-		
-	});
+		socket.on('inputs', function(inputs){
+			
+			console.log("Inputs received");
+			if (playerOne.id == socket.id) {
+				processInputs(playerOne, inputs);
+				console.log("Player one input: " + inputs[0] + " " + inputs[1] + " " + inputs[2] + " " + inputs[3]);
+			} else if (playerTwo.id == socket.id) {
+				processInputs(playerTwo, inputs);
+				console.log("Player two input: " + inputs[0] + " " + inputs[1] + " " + inputs[2] + " " + inputs[3]);
+			}
+			
+		});
 	}
 });
